@@ -26,8 +26,9 @@ function showGalaxies (array) {
     galaxiesContainer.innerHTML =""
 
     array.forEach(function (element) {
-    let [link] =element.links; 
-    let [{title, description,date_created}] = element.data
+    let [link] =element.links; // desestructuración de arrays.
+    let [{title, description,date_created, ...restData}] = element.data // desestructuración de arrays, se agrega rest para almacenar el resto de la info en data por si se quisiera utilizar eventualmente.
+    console.log([{title, description,date_created, ...restData}])
     galaxiesContainer.innerHTML += ` <div class="col-md-4">
     <div class="card">
          <img src="${link.href}" class="card-img-top" alt="${element.data[0].title}">
