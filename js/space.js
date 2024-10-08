@@ -43,7 +43,7 @@ let promises = imgJSONArray.map(element => {
         array.forEach(function (element, index) {
         galaxiesContainer.innerHTML += ` <div class="col-md-4">
         <div class="card">
-         <img src="${galaxiesImgArray[index][0]}" class="card-img-top" alt="${element.data[0].title}">
+         <img src="${displayImg(galaxiesImgArray,index)}" class="card-img-top" alt="${element.data[0].title}">
             <div class="card-body">
             <h5 class="card-title">${element.data[0].title}</h5>
             <p class="card-text">${element.data[0].description}</p>
@@ -57,7 +57,16 @@ let promises = imgJSONArray.map(element => {
 
 };
 
+function displayImg (array, index){
+    let currentArray = array[index]
+    let filteredCurrentArray = currentArray.filter(isJpgImage)
+    let img= filteredCurrentArray[0]
+    return img
+}
 
+function isJpgImage(url) {
+    return url.match(/\.jpg$/i); // Comprueba si la URL termina con .jpg 
+}
 
 let getJSONData = function(url){
     let result = {};
