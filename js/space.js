@@ -6,6 +6,7 @@ document.getElementById('btnBuscar').addEventListener('click', function(){
             if(respObj.status=="ok"){
                 galaxiesArray=respObj.data.collection.items;
                 showGalaxies(galaxiesArray);
+                
             }
         });
 
@@ -34,32 +35,20 @@ let promises = imgJSONArray.map(element => {
         }
     });
 })
+
 //Verifico primero que se completen todas las promesas antes de utilizar galaxiesImgArray.
     Promise.all(promises).then(() => { 
         galaxiesContainer.innerHTML =""
 
         array.forEach(function (element, index) {
         galaxiesContainer.innerHTML += ` <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-            <div id="carouselExampleControls${index}" class="carousel slide" data-ride="carousel" data-interval="1000">
-            <div class="carousel-inner">
-            ${galaxiesCarousel(galaxiesImgArray,index)}
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls${index}" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls${index}" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-        <div class="card-body">
+        <div class="card">
+         <img src="${galaxiesImgArray[index][0]}" class="card-img-top" alt="${element.data[0].title}">
+            <div class="card-body">
             <h5 class="card-title">${element.data[0].title}</h5>
             <p class="card-text">${element.data[0].description}</p>
             <small>${element.data[0].date_created}</small>
-        </div>
-        </div>
+            </div>
         </div>
         `
         });
@@ -68,23 +57,6 @@ let promises = imgJSONArray.map(element => {
 
 };
 
-function galaxiesCarousel (array, index){
-    let carousel = ""
-    let  currentArray = array[index]
-    for(i=0; i < currentArray.length; i++){
-        if (i==0){
-            carousel += `<div class="carousel-item active">
-        <img src=${currentArray[i]} class="d-block w-100" alt="NASA img">
-        </div>`
-        }
-        else {
-            carousel += `<div class="carousel-item">
-        <img src=${currentArray[i]} class="d-block w-100" alt="NASA img">
-        </div>`
-        }
-    }
-    return carousel
-}
 
 
 let getJSONData = function(url){

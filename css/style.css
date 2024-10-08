@@ -2,8 +2,12 @@ main {
     min-height: calc(100vh - 160px);
   }
 
-  .carousel img {
-    height: 220px;
+.card{
+  width: 100%;
+  
+}
+  .card-img-top {
+    height: 200px;
     width: 100%;
     object-fit: cover;
     object-position: center;
@@ -11,5 +15,7 @@ main {
 
 .card-body {
   height: 200px; 
-  overflow-y: auto;  
+  width: 100%;
+  overflow: auto;
+
 }
