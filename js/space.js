@@ -25,14 +25,16 @@ function showGalaxies (array) {
 
     galaxiesContainer.innerHTML =""
 
-    array.forEach(function (element, index) {
+    array.forEach(function (element) {
+    let [link] =element.links; 
+    let [{title, description,date_created}] = element.data
     galaxiesContainer.innerHTML += ` <div class="col-md-4">
     <div class="card">
-         <img src="${element.links[0].href}" class="card-img-top" alt="${element.data[0].title}">
+         <img src="${link.href}" class="card-img-top" alt="${element.data[0].title}">
             <div class="card-body">
-            <h5 class="card-title">${element.data[0].title}</h5>
-            <p class="card-text">${element.data[0].description}</p>
-            <small>${element.data[0].date_created}</small>
+            <h5 class="card-title">${title}</h5>
+            <p class="card-text">${description}</p>
+            <small>${date_created}</small>
             </div>
         </div>
         `
