@@ -6,6 +6,7 @@ document.getElementById('btnBuscar').addEventListener('click', function(){
             if(respObj.status=="ok"){
                 galaxiesArray=respObj.data.collection.items;
                 showGalaxies(galaxiesArray);
+               
                 
             }
         });
@@ -21,29 +22,13 @@ document.getElementById('btnBuscar').addEventListener('click', function(){
 let galaxiesContainer = document.getElementById('contenedor')
 
 function showGalaxies (array) {
-let imgJSONArray = [];
-array.forEach(element => { 
-    let imgJSON = element.href
-    imgJSONArray.push(imgJSON)
-});
-let galaxiesImgArray = [];
 
-let promises = imgJSONArray.map(element => {
-    return getJSONData(element).then(function (respObj) {
-        if (respObj.status == "ok") {
-            galaxiesImgArray.push(respObj.data);
-        }
-    });
-})
+    galaxiesContainer.innerHTML =""
 
-//Verifico primero que se completen todas las promesas antes de utilizar galaxiesImgArray.
-    Promise.all(promises).then(() => { 
-        galaxiesContainer.innerHTML =""
-
-        array.forEach(function (element, index) {
-        galaxiesContainer.innerHTML += ` <div class="col-md-4">
-        <div class="card">
-         <img src="${displayImg(galaxiesImgArray,index)}" class="card-img-top" alt="${element.data[0].title}">
+    array.forEach(function (element, index) {
+    galaxiesContainer.innerHTML += ` <div class="col-md-4">
+    <div class="card">
+         <img src="${element.links[0].href}" class="card-img-top" alt="${element.data[0].title}">
             <div class="card-body">
             <h5 class="card-title">${element.data[0].title}</h5>
             <p class="card-text">${element.data[0].description}</p>
@@ -51,22 +36,13 @@ let promises = imgJSONArray.map(element => {
             </div>
         </div>
         `
-        });
-    })
+});
+    
 
 
 };
 
-function displayImg (array, index){
-    let currentArray = array[index]
-    let filteredCurrentArray = currentArray.filter(isJpgImage)
-    let img= filteredCurrentArray[0]
-    return img
-}
 
-function isJpgImage(url) {
-    return url.match(/\.jpg$/i); // Comprueba si la URL termina con .jpg 
-}
 
 let getJSONData = function(url){
     let result = {};
